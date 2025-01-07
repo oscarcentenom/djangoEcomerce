@@ -1,0 +1,76 @@
+{% extends "ArticuloApp/base.html" %}
+{% load static %}
+{% block content %}
+
+
+
+
+<div class="container text-center">
+  <table class="table text-center">
+    <tr>
+       <th scope="col">Articulo</th>
+       <th scope="col">Cant.</th>
+       <th scope="col">Monto</th>
+     </tr>
+     {% for key,value in carro.items %}
+     <tr>
+      <th>{{value.nombre_prod}}</th>
+      <th>{{value.pedido.0}}</th>
+      <th>{{value.precio_prod}}</th>
+    </tr>
+    {% endfor %}
+   </table>
+  </div> 
+
+
+
+<div class="container text-center">
+ 
+  
+  {% for key,value in carro.items %}
+  <div class="row">
+    <div class="col">
+
+      <div class="card mb-3" style="max-width: 540px;">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img src="{{value.imagen_prod}}" class="img-fluid rounded-start" alt="...">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">{{value.nombre_prod}}</h5>
+              <p class="card-text">{{value.descripcion_prod}}</p>
+              <p class="card-text"><small class="text-body-secondary">Cant. {{value.cantidad_prod}}</small></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    
+    <div class="col">
+      <h1>{{value.precio_prod}}<span class="badge text-bg-secondary">$</span></h1>
+      <p>
+      <form action="#">
+        <label for="valor">Cantidad:</label>
+        <select name="valor" id="valor">
+          {% for key in value.pedido %}
+        <option value="cant">{{key}}</option>
+          {% endfor %}
+        </select>
+        <input type="submit" value="Submit">
+        </form>  
+        <a href="#" class="stretched-link">Eliminar</a>  
+      </p>
+    </div>
+    
+  </div>
+  
+  {% endfor %}  
+
+
+</div>
+
+
+
+{% endblock %}

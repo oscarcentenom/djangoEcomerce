@@ -1,0 +1,19 @@
+<div class="card text-center">
+    <div class="card-header">
+      Carro de compra vacio
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">No tienes artículos en el carro de compras.</h5>
+      <p class="card-text">¿Tienes una cuenta? Inicia sesión para ver tus artículos.</p>
+      {% if user.is_authenticated %}
+      <a href="/" class="btn btn-primary">Home</a>
+      {% else %}
+      <a href="{% url "Register" %}" class="btn btn-primary">Register</a>
+      <a href="{% url "Logear" %}" class="btn btn-primary">-Login-</a>  
+      {% endif %}
+    </div>
+    <div class="card-footer text-body-secondary">
+      
+    </div>
+  </div>
+  

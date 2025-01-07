@@ -1,0 +1,103 @@
+{% extends "ArticuloApp/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+
+<div class="container">
+  <h1 class="text-center">Completar la Compra<span class="badge text-bg-secondary"></span></h1>
+  {% if request.session.carrito_de_compra.items %}
+  
+  
+  <div style="float:right;">
+
+    {% include "ArticuloApp/carro/widget_aut.html" %}
+
+  </div>
+  <table class="">  
+    
+    <thead>
+  </thead>
+  {% for key,value in carro.items %}
+  <tbody>
+    <tr>
+      
+      <td>
+        <div class="card mb-3" style="max-width: 540px;">
+          <div class="row g-0">
+            <div class="col-md-4">
+              <img src="{{value.imagen_prod}}" class="img-fluid rounded-start" alt="...">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title">{{value.nombre_prod}}</h5>
+                <p class="card-text">{{value.descripcion_prod}}</p>
+                <p class="card-text"><small class="text-body-secondary">Cant. {{value.cantidad_prod}}</small></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </td>
+
+      <td>
+
+  <div class="col text-center">
+      <h1>{{value.precio_prod}}<span class="badge text-bg-secondary">$</span></h1>  
+  </div>
+
+      </td>
+      
+    </tr>
+  </tbody>
+  {% endfor %}  
+  
+</table>
+
+
+<div class="card w-75 mb-3" style="margin:auto;">
+  <div class="card-body">
+    <h5 class="card p-3 bg-primary text-white">Datos del cliente</h5><br>
+    {% if user.is_authenticated %}
+    <form class="row g-3" action="{% url "Transaccion" %}" method="POST">
+      <div class="col">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <div class="d-grid gap-2">
+        <button type="submit" class="btn btn-primary">Realizar la compra</button>
+      </div>
+    </div>
+    
+    </form>
+    
+    {% endif %}    
+  </div>
+</div>
+    
+
+</div>
+{% else %}
+
+{% include "ArticuloApp/carro/carrovacio.html" %}
+
+
+{% endif %}
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{% if messages %}
+  {% for mens in messages %}
+      <script>
+        Swal.fire({
+              "title":"Felicitaciones",
+              "text":"{{ mens }}",
+              "icon":"success"
+      })
+      </script>
+    
+  {% endfor %}
+{% endif %}
+
+{% endblock %}
+
+
