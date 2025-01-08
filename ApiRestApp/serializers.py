@@ -12,7 +12,7 @@ class ProductoSerializer(serializers.HyperlinkedModelSerializer):
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
-        fields = ['url', 'username', 'email', 'groups']
+        fields = ['id', 'username', 'email', 'password']
 
 class GroupSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
