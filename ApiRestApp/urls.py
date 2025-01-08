@@ -21,6 +21,6 @@ from . import views
 
 urlpatterns = [
     path('Login', views.login, name="Login"),
-    path('Register', views.register, name="Register"),
+    path('Registro', views.registro, name="Registro"),
     path('Profile', views.profile, name="Profile"),
     ]

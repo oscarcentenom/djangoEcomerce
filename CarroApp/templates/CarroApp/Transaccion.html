@@ -53,12 +53,14 @@
   {% endfor %}  
   
 </table>
+<br>
+<br>
 
-
+{% if user.is_authenticated %}
 <div class="card w-75 mb-3" style="margin:auto;">
   <div class="card-body">
     <h5 class="card p-3 bg-primary text-white">Datos del cliente</h5><br>
-    {% if user.is_authenticated %}
+    
     <form class="row g-3" action="{% url "Transaccion" %}" method="POST">
       <div class="col">
       {% csrf_token %}
@@ -70,10 +72,10 @@
     
     </form>
     
-    {% endif %}    
+        
   </div>
 </div>
-    
+{% endif %}
 
 </div>
 {% else %}

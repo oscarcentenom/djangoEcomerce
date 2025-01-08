@@ -6,7 +6,7 @@ from django.contrib.auth import get_user_model
 from ArticuloApp.models import Producto
 # Create your views here. 
 
-@login_required(login_url="/")
+#@login_required(login_url="/")
 
 def Transaccion(request):
     
