@@ -30,11 +30,11 @@ def Transaccion(request):
                 lista_pedidos.append(DetallePedidos(
                 Ped_id=str(pedido),
                 Product_id=key,    
-                precio_Producto=value["precio_prod"],
+                precio_Producto = float(value["precio_prod"]),
                 cant_Producto=value["pedido_total"]    
                 ))
                 prod=Producto.objects.get(id=key)
-                prod.cantidad_prod=int(prod.cantidad_prod)-int(value["pedido_total"])
+                prod.cantidad_prod=float(prod.cantidad_prod)-float(value["pedido_total"])
                 prod.save()
             DetallePedidos.objects.bulk_create(lista_pedidos)
             request.session["carrito_de_compra"]={}

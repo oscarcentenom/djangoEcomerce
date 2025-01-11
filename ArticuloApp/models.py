@@ -52,4 +52,15 @@ class Producto(models.Model):
         db_table="Productos"
 
    
-        
+class ImagenesSegundarias(models.Model):
+    imagen_segundarias=models.ImageField(upload_to="ArticuloApp")
+    product=models.ForeignKey(Producto,null=True,blank=True,on_delete=models.CASCADE, related_name="imagenes")
+    
+    def __str__(self):
+        return str(self.imagen_segundarias)
+    
+    class Meta:
+        verbose_name="ImagenesSegundaria"
+        verbose_name_plural="ImagenesSegundarias"
+        db_table="ImagenesSegundaria"
+        #ordering=["nombre_categ","-activo_categ"]        

@@ -66,7 +66,7 @@ def Act(request,pro_id):
     prod=Producto.objects.get(id=pro_id)
     carrito_de_compra=request.session["carrito_de_compra"]
     carrito_de_compra[str(pro_id)]["pedido_total"]=str(request.POST["valor"])
-    carrito_de_compra[str(pro_id)]["precio_total"]=int(carrito_de_compra[str(pro_id)]["precio_prod"])*int(carrito_de_compra[str(pro_id)]["pedido_total"])
+    carrito_de_compra[str(pro_id)]["precio_total"]=float(carrito_de_compra[str(pro_id)]["precio_prod"])*float(carrito_de_compra[str(pro_id)]["pedido_total"])
     #del carrito_de_compra[str(pro_id)]
     request.session.modified = True
     #print(".......gg.......",carrito_de_compra[str(pro_id)])

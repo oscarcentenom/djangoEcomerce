@@ -42,7 +42,7 @@ class DetallePedidos(models.Model):
     cant_Producto = models.IntegerField()
     
     def __str__(self):
-        return f"{self.cant_Producto} und. de {self.Producto.nombre_prod}"
+        return str(self.Ped)
     
     class Meta:
         verbose_name="DetallePedidos"

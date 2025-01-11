@@ -2,8 +2,10 @@ from django.shortcuts import render, HttpResponse
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
-from ArticuloApp.models import Producto
+from ArticuloApp.models import Producto, ImagenesSegundarias
 import requests
+from django.core.paginator import Paginator
+
 # Create your views here.
 
 class HomeView(View):
@@ -15,12 +17,25 @@ class HomeView(View):
     #   get y post
 def home(request):
     prod=Producto.objects.all()
+    paginator = Paginator(prod, 4)
     
-    return render(request,"ArticuloApp/home.html", {"productos": prod})
+    numero_pagina = request.GET.get("page") or 1
+    page_obj = paginator.get_page(numero_pagina)
+    actual_pagina=int(numero_pagina)
+    paginas=range(1,page_obj.paginator.num_pages + 1)
+    return render(request,"ArticuloApp/home.html", {"productos": page_obj, 
+                                                    "page_obj": page_obj,
+                                                    "paginas": paginas,
+                                                    "actual_pagina": actual_pagina
+                                                    })
 
 def Articulo(request,pro_id):
     
     prod=Producto.objects.get(id=pro_id)
+    imag=ImagenesSegundarias.objects.filter(product=pro_id)
+    for key in imag:
+        print("xxxxxxxx    ",key)
+    
     reciente_vista_producto = None
     # Vistas de articulos recientes
     
@@ -36,6 +51,6 @@ def Articulo(request,pro_id):
          request.session["reciente_vista"] = [pro_id] 
     request.session.modified = True
     #..................
-    context={"productos": prod,"reciente_vista_producto":reciente_vista_producto} 
-    
+    context={"productos": prod,"reciente_vista_producto":reciente_vista_producto,"imag":imag} 
+    print(context)
     return render(request,"ArticuloApp/Articulo.html/",context)
